@@ -50,13 +50,17 @@ def load_embedding_model(model_path, normalize_embedding=True):
 # Function for creating embeddings using FAISS
 def create_embeddings(chunks, embedding_model, storing_path="vectorstore"):
     # Creating the embeddings using FAISS
-    #vectorstore = FAISS.from_documents(chunks, embedding_model)
-    vectorstore = redis.
+    vectorstore = FAISS.from_documents(chunks, embedding_model)
     
     # Saving the model in current directory
     vectorstore.save_local(storing_path)
     
     # returning the vectorstore
+    return vectorstore
+
+# Function to retrieve embeddings from already existing local directory
+def reload_embeddings(embedding_model,storing_path="vectorstore"):
+    vectorstore = FAISS.load_local(embeddings=embedding_model,folder_path=storing_path)
     return vectorstore
 
 # Creating the chain for Question Answering
@@ -76,3 +80,4 @@ def get_response(query, chain):
     # Wrapping the text for better output in Jupyter Notebook
     wrapped_text = textwrap.fill(response['result'], width=100)
     print(wrapped_text)
+
