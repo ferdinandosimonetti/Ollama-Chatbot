@@ -1,8 +1,8 @@
 # Importing the necessary packages
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.document_loaders import PyMuPDFLoader
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 import textwrap
     
@@ -50,7 +50,8 @@ def load_embedding_model(model_path, normalize_embedding=True):
 # Function for creating embeddings using FAISS
 def create_embeddings(chunks, embedding_model, storing_path="vectorstore"):
     # Creating the embeddings using FAISS
-    vectorstore = FAISS.from_documents(chunks, embedding_model)
+    #vectorstore = FAISS.from_documents(chunks, embedding_model)
+    vectorstore = redis.
     
     # Saving the model in current directory
     vectorstore.save_local(storing_path)
